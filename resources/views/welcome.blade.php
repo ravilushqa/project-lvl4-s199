@@ -79,7 +79,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Task Manager
+                {{ config('app.name', 'Laravel') }}
             </div>
 
             <p>Final php project on Hexlet</p>
