@@ -11,42 +11,41 @@ class UsersTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+    protected $startName = 'testName';
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->user = create(User::class, ['name' => $this->startName]);
+
+        $this->signIn($this->getUser());
+    }
+
     public function testUserCanSeeUsersList()
     {
-        $user = create(User::class);
-        $this->signIn($user);
-
         $this->get(route('users.index'))
-            ->assertSee($user->name);
+            ->assertSee($this->getUser()->name);
     }
 
     public function testUserCanUpdateSelf()
     {
         $expected = 'changedName';
 
-        $user = create(User::class, ['name' => 'testName']);
-        $this->signIn($user);
+        $this->assertNotEquals($expected, $this->getUser()->name);
 
-        $this->json('PUT', route('users.update', $user->getKey()), [
-            'name'  => $expected,
-            'email' => 'test@example.com'
-        ]);
+        $this->updateRequest($this->getUser(), $expected);
 
-        $this->assertEquals($expected, User::find($user->getKey())->name);
+        $this->assertEquals($expected, $this->getUser()->name);
     }
 
 
     public function testUserCanNotUpdateOthers()
     {
-        $authUser = create(User::class);
         $otherUser = create(User::class);
 
-        $this->signIn($authUser);
-
-        $response = $this->json('PUT', route('users.update', $otherUser->getKey()), [
-            'name'  => 'changedName',
-            'email' => 'test@example.com'
-        ]);
+        $response = $this->updateRequest($otherUser);
 
         $this->assertEquals('403', $response->getStatusCode());
     }
@@ -56,5 +55,21 @@ class UsersTest extends TestCase
         $user = create(User::class);
         $this->get(route('users.show', $user->getKey()))
             ->assertSee(e($user->name));
+    }
+
+    /**
+     * Get fresh instance of user
+     *
+     * @return User
+     */
+    protected function getUser() : User {
+        return User::find($this->user->getKey());
+    }
+
+    protected function updateRequest(User $user, $expectedName = 'testName', $expectedEmail = 'test@email.test') {
+        return $this->json('PUT', route('users.update', $user->getKey()), [
+            'name'  => $expectedName,
+            'email' => $expectedEmail
+        ]);
     }
 }
