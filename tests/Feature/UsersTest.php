@@ -11,12 +11,6 @@ class UsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
-    {
-        parent::setUp();
-//        $this->disableExceptionHandling();
-    }
-
     public function testUserCanSeeUsersList()
     {
         $user = create(User::class);
@@ -28,15 +22,17 @@ class UsersTest extends TestCase
 
     public function testUserCanUpdateSelf()
     {
+        $expected = 'changedName';
+
         $user = create(User::class, ['name' => 'testName']);
         $this->signIn($user);
 
-        $this->json('PUT', route('users.update', ['user' => $user->getKey()]), [
-            'name'  => 'changedName',
+        $this->json('PUT', route('users.update', $user->getKey()), [
+            'name'  => $expected,
             'email' => 'test@example.com'
         ]);
 
-        $this->assertEquals('changedName', User::find($user->getKey())->name);
+        $this->assertEquals($expected, User::find($user->getKey())->name);
     }
 
 
@@ -47,11 +43,18 @@ class UsersTest extends TestCase
 
         $this->signIn($authUser);
 
-        $response = $this->json('PUT', route('users.update', ['user' => $otherUser->getKey()]), [
+        $response = $this->json('PUT', route('users.update', $otherUser->getKey()), [
             'name'  => 'changedName',
             'email' => 'test@example.com'
         ]);
 
         $this->assertEquals('403', $response->getStatusCode());
+    }
+
+    public function testUserHasProfile()
+    {
+        $user = create(User::class);
+        $this->get(route('users.show', $user->getKey()))
+            ->assertSee(e($user->name));
     }
 }
