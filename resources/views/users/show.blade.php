@@ -6,7 +6,7 @@
             <div class="col-md-6 order-md-1">
                 <h4 class="mb-3">Main settings</h4>
 
-                <form action="{{ route('users.update', ['user' => $profileUser->getKey()]) }}" method="POST" class="needs-validation" novalidate>
+                <form action="{{ route('users.update', ['user' => $user->getKey()]) }}" method="POST" class="needs-validation" novalidate>
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
 
@@ -17,10 +17,10 @@
                                    class="form-control"
                                    id="username"
                                    name="name"
-                                   value="{{$profileUser->name}}"
+                                   value="{{$user->name}}"
                                    placeholder="Username"
                                    required
-                                   @cannot('update', $profileUser)
+                                   @cannot('update', $user)
                                        disabled
                                    @endcannot
                                 >
@@ -36,9 +36,9 @@
                                class="form-control"
                                id="email"
                                name="email"
-                               value="{{ $profileUser->email }}"
+                               value="{{ $user->email }}"
                                placeholder="you@example.com"
-                               @cannot('update', $profileUser)
+                               @cannot('update', $user)
                                    disabled
                                @endcannot
                         >
@@ -49,7 +49,7 @@
                     <hr class="mb-4">
                     <button class="btn btn-primary btn-lg btn-block"
                             type="submit"
-                            @cannot('update', $profileUser)
+                            @cannot('update', $user)
                             disabled
                             @endcannot
                     >

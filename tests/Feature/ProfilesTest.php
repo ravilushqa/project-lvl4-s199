@@ -14,7 +14,7 @@ class ProfilesTest extends TestCase
     public function testUserHasProfile()
     {
         $user = create(User::class);
-        $this->get(route('profile', ['user' => $user->getKey()]))
+        $this->get(route('users.show', ['profile' => $user->getKey()]))
             ->assertSee(e($user->name));
     }
 }

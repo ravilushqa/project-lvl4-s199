@@ -43,7 +43,7 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="{{ route('profile', Auth::user()) }}" class="dropdown-item">
+                                <a href="{{ route('users.show', Auth::user()) }}" class="dropdown-item">
                                     Profile
                                 </a>
                                 <a href="{{ route('logout') }}" class="dropdown-item"

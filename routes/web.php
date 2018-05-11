@@ -18,7 +18,4 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'UserController');
-Route::get('/profile/{user}', 'ProfileController@show')->name('profile');
-
-Route::get('/home', 'HomeController@index')->name('home');
 

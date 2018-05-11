@@ -19,7 +19,7 @@
                     @foreach($users as $user)
                         <tr>
                             <td>
-                                <a href="{{ route('profile', $user->getKey()) }}">
+                                <a href="{{ route('users.show', $user->getKey()) }}">
                                     {{ $user->name }}
                                 </a>
                             </td>
