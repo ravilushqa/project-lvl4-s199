@@ -42,7 +42,7 @@ class TaskStatusController extends Controller
 
         TaskStatus::create($validated);
 
-        return redirect(route('task-statuses.index'));
+        return redirect()->back();
     }
 
     /**
@@ -80,17 +80,20 @@ class TaskStatusController extends Controller
 
         $taskStatus->update($validated);
 
-        return redirect(route('task-statuses.show', $taskStatus));
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TaskStatus  $taskStatus
+     * @param  \App\TaskStatus $taskStatus
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        //
+        $taskStatus->delete();
+
+        return redirect()->back();
     }
 }
