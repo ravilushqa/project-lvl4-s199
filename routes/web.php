@@ -18,3 +18,6 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'UserController');
+Route::resource('tasks', 'TaskController');
+Route::resource('tags', 'TagController');
+Route::resource('task-statuses', 'TaskStatusController');

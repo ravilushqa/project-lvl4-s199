@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskStatusStoreRequest;
 use App\TaskStatus;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        //
+        $taskStatuses = TaskStatus::all();
+
+        return response($taskStatuses);
     }
 
     /**
@@ -30,12 +33,16 @@ class TaskStatusController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TaskStatusStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskStatusStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        TaskStatus::create($validated);
+
+        return redirect(route('task-statuses.index'));
     }
 
     /**
@@ -46,7 +53,7 @@ class TaskStatusController extends Controller
      */
     public function show(TaskStatus $taskStatus)
     {
-        //
+        return response($taskStatus);
     }
 
     /**
@@ -63,13 +70,17 @@ class TaskStatusController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TaskStatus  $taskStatus
+     * @param TaskStatusStoreRequest $request
+     * @param  \App\TaskStatus $taskStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(TaskStatusStoreRequest $request, TaskStatus $taskStatus)
     {
-        //
+        $validated = $request->validated();
+
+        $taskStatus->update($validated);
+
+        return redirect(route('task-statuses.show', $taskStatus));
     }
 
     /**

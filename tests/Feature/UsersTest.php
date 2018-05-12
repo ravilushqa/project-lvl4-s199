@@ -12,6 +12,7 @@ class UsersTest extends TestCase
     use RefreshDatabase;
 
     protected $user;
+
     protected $startName = 'testName';
 
     protected function setUp()
