@@ -47,7 +47,6 @@ class TaskStatusesTest extends TestCase
         $this->post(route('task-statuses.store'), $taskStatus->toArray());
 
         $this->assertDatabaseHas('task_statuses', $expected);
-
     }
 
     public function testUpdateTaskStatus()
@@ -63,7 +62,6 @@ class TaskStatusesTest extends TestCase
         $this->json('PUT', route('task-statuses.update', $this->taskStatus->getKey()), $expected);
 
         $this->assertDatabaseHas('task_statuses', $expected);
-
     }
 
     public function testDeleteTaskStatus()
