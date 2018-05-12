@@ -62,11 +62,13 @@ class UsersTest extends TestCase
      *
      * @return User
      */
-    protected function getUser() : User {
+    protected function getUser() : User
+    {
         return User::find($this->user->getKey());
     }
 
-    protected function updateRequest(User $user, $expectedName = 'testName', $expectedEmail = 'test@email.test') {
+    protected function updateRequest(User $user, $expectedName = 'testName', $expectedEmail = 'test@email.test')
+    {
         return $this->json('PUT', route('users.update', $user->getKey()), [
             'name'  => $expectedName,
             'email' => $expectedEmail

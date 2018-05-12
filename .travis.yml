@@ -13,7 +13,7 @@ before_script:
 services:
   - mysql
 
-script: make test
+script: make test lint
 
 after_script:
   - vendor/bin/test-reporter
