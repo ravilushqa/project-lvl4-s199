@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskStoreRequest;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::all();
+
+        return $tasks;
     }
 
     /**
@@ -33,9 +36,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Task::create($validated);
+
+        return redirect()->back();
     }
 
     /**
@@ -46,7 +53,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return $task;
     }
 
     /**
@@ -67,19 +74,26 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskStoreRequest $request, Task $task)
     {
-        //
+        $validated = $request->validated();
+
+        $task->update($validated);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Task  $task
+     * @param  \App\Task $task
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->back();
     }
 }
