@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 </head>
 <body>
 <div id="app">
@@ -22,6 +23,9 @@
 
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
+            </a>
+            <a class="navbar-brand" href="{{ route('tasks.index') }}">
+                Tasks
             </a>
             <a class="navbar-brand" href="{{ route('users.index') }}">
                 Users
@@ -63,13 +67,23 @@
         </div>
     </nav>
 
-    @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
+
 </div>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+</script>
+<script>
+    $(document).ready(function(){
+        $('select').select2();
+    });
 </script>
 </body>
 </html>

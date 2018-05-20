@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\TaskForm;
 use App\Http\Requests\TaskStoreRequest;
+use App\Tag;
 use App\Task;
+use App\TaskStatus;
+use App\User;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class TaskController extends Controller
 {
@@ -15,19 +20,25 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest('id')->get();
 
-        return $tasks;
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(TaskForm::class, [
+            'method' => 'POST',
+            'url' => route('tasks.store')
+        ]);
+
+        return view('tasks.create', compact('form'));
     }
 
     /**
@@ -40,7 +51,9 @@ class TaskController extends Controller
     {
         $validated = $request->validated();
 
-        Task::create($validated);
+        $task = Task::create($validated);
+
+        $task->tags()->sync($request->tags);
 
         return redirect()->back();
     }
@@ -53,7 +66,13 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return $task;
+        $tags = Tag::pluck('name','id')->toArray();
+
+        $statuses = TaskStatus::pluck('name','id')->toArray();
+
+        $users = User::pluck('name','id')->toArray();
+
+        return view('tasks.show', compact('task', 'tags', 'statuses', 'users'));
     }
 
     /**
@@ -62,9 +81,16 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit(Task $task, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(TaskForm::class, [
+            'method' => 'PUT',
+            'url' => route('tasks.update', $task),
+            'model' => $task
+        ]);
+
+        return view('tasks.edit', compact('form'));
+
     }
 
     /**
@@ -79,6 +105,8 @@ class TaskController extends Controller
         $validated = $request->validated();
 
         $task->update($validated);
+
+        $task->tags()->sync($request->tags);
 
         return redirect()->back();
     }

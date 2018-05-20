@@ -6,12 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($task) {
+
+            $task->creator_id = \Auth::user()->getKey();
+        });
+    }
+
     protected $fillable = [
         'name',
         'description',
         'status_id',
         'creator_id',
         'assigned_id',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
     ];
 
     public function creator()

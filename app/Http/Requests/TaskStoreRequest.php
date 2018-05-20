@@ -29,7 +29,7 @@ class TaskStoreRequest extends FormRequest
             'description' => 'string',
             'status_id' => 'numeric|exists:task_statuses,id',
             'assigned_id' => 'numeric|exists:users,id',
-            'creator_id' => 'numeric|exists:users,id',
+            'tags' => 'array',
         ];
     }
 }
