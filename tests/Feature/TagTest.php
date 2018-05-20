@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class tagesTest extends TestCase
+class TagTest extends TestCase
 {
     use RefreshDatabase;
 
