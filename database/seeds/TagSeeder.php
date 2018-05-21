@@ -17,9 +17,9 @@ class TagSeeder extends Seeder
         ];
 
         foreach ($names as $name) {
-            $taskStatus = new \App\Tag();
-            $taskStatus->name = $name;
-            $taskStatus->save();
+            $tag = new \App\Tag();
+            $tag->name = $name;
+            $tag->save();
         }
     }
 }
