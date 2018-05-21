@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\TaskFilters;
+use App\Forms\FilterForm;
 use App\Forms\TaskForm;
 use App\Http\Requests\TaskStoreRequest;
 use App\Tag;
@@ -16,13 +18,18 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param TaskFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TaskFilters $filters, FormBuilder $formBuilder)
     {
-        $tasks = Task::latest('id')->get();
+        $form = $formBuilder->create(FilterForm::class, [
+            'method' => 'GET',
+            'url' => route('tasks.index'),
+        ]);
+        $tasks = $this->getTasks($filters);
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'form'));
     }
 
     /**
@@ -123,5 +130,16 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->back();
+    }
+
+    /**
+     * @param TaskFilters $filters
+     * @return mixed
+     */
+    protected function getTasks(TaskFilters $filters)
+    {
+        $threads = Task::latest()->filter($filters);
+
+        return $threads->paginate(8);
     }
 }

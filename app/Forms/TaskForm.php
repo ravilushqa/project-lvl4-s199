@@ -17,11 +17,13 @@ class TaskForm extends Form
                 'rules' => 'required'
             ])
             ->add('description', 'textarea')
-            ->add('status', 'select', [
+            ->add('status_id', 'select', [
                 'choices' => TaskStatus::all()->pluck('name', 'id')->toArray(),
+                'label' => 'Status'
             ])
-            ->add('assigned to', 'select', [
+            ->add('assigned_id', 'select', [
                 'choices' => User::all()->pluck('name', 'id')->toArray(),
+                'label' => 'Assigned to'
             ])
             ->add('tags', 'choice', [
                 'choices' => Tag::all()->pluck('name', 'id')->toArray(),

@@ -50,6 +50,9 @@
                                 <a href="{{ route('users.show', Auth::user()) }}" class="dropdown-item">
                                     Profile
                                 </a>
+                                <a href="{{ route('tasks.index'). '?creator=' . auth()->user()->name }}" class="dropdown-item">
+                                    My tasks
+                                </a>
                                 <a href="{{ route('logout') }}" class="dropdown-item"
                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     Logout
@@ -68,6 +71,7 @@
     </nav>
 
     <div class="container">
+        <br>
         @yield('content')
     </div>
 

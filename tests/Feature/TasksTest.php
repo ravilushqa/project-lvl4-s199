@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Tag;
 use App\Task;
 use App\TaskStatus;
 use App\User;
@@ -77,5 +78,47 @@ class TasksTest extends TestCase
         $this->json('DELETE', route('tasks.destroy', $task->getKey()));
 
         $this->assertDatabaseMissing('tasks', ['id' => $task->getKey()]);
+    }
+
+    public function testFilterByCreator()
+    {
+        $taskNotByJohn = create(Task::class);
+        $this->signIn(create(User::class, ['name' => 'JohnDoe']));
+        $taskByJohn = create(Task::class);
+        $this->get(route('tasks.index') . '?creator=JohnDoe')
+            ->assertSee($taskByJohn->name)
+            ->assertDontSee($taskNotByJohn->name);
+    }
+
+    public function testFilterByAssigned()
+    {
+        $user = create(User::class, ['name' => 'JohnDoe']);
+        $taskToJohn = create(Task::class, ['assigned_id' => $user->getKey()]);
+        $taskNotToJohn = create(Task::class);
+        $this->get(route('tasks.index') . '?assigned=JohnDoe')
+            ->assertSee($taskToJohn->name)
+            ->assertDontSee($taskNotToJohn->name);
+    }
+
+    public function testFilterByStatus()
+    {
+        $task = create(Task::class);
+        $anotherTask = create(Task::class);
+        $this->get(route('tasks.index') . '?status='.$task->status->name)
+            ->assertSee($task->name)
+            ->assertDontSee($anotherTask->name);
+    }
+
+    public function testFilterByTag()
+    {
+        $task = create(Task::class);
+        $task->tags()->attach(create(Tag::class));
+
+        $anotherTask = create(Task::class);
+        $anotherTask->tags()->attach(create(Tag::class));
+
+        $this->get(route('tasks.index') . '?tag='.$task->tags->first()->name)
+            ->assertSee($task->name)
+            ->assertDontSee($anotherTask->name);
     }
 }

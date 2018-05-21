@@ -49,4 +49,14 @@ class Task extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * @param $query
+     * @param $filters
+     * @return mixed
+     */
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 }
