@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Task;
 use App\TaskStatus;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,6 +18,8 @@ class TasksTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+
+        $this->signIn(create(User::class));
 
         $this->task = create(Task::class);
     }

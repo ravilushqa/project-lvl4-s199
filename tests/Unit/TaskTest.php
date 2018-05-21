@@ -19,6 +19,9 @@ class TaskTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
+        $this->signIn(create(User::class));
+
         $this->task = create(Task::class);
     }
 
