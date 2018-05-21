@@ -20,7 +20,7 @@ class TaskTest extends TestCase
     {
         parent::setUp();
 
-        $this->signIn(create(User::class));
+        $this->signIn();
 
         $this->task = create(Task::class);
     }
