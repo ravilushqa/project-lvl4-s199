@@ -64,7 +64,7 @@ class TaskFilters extends Filters
      */
     protected function tag($tagName)
     {
-        return $this->builder->whereHas('tags', function(Builder $query) use ($tagName) {
+        return $this->builder->whereHas('tags', function (Builder $query) use ($tagName) {
             $query->where('name', $tagName);
         });
     }

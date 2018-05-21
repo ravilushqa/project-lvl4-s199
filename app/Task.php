@@ -11,7 +11,7 @@ class Task extends Model
     {
         parent::boot();
 
-        static::creating(function($task) {
+        static::creating(function ($task) {
 
             $task->creator_id = \Auth::user()->getKey();
         });

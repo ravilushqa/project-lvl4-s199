@@ -73,11 +73,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $tags = Tag::pluck('name','id')->toArray();
+        $tags = Tag::pluck('name', 'id')->toArray();
 
-        $statuses = TaskStatus::pluck('name','id')->toArray();
+        $statuses = TaskStatus::pluck('name', 'id')->toArray();
 
-        $users = User::pluck('name','id')->toArray();
+        $users = User::pluck('name', 'id')->toArray();
 
         return view('tasks.show', compact('task', 'tags', 'statuses', 'users'));
     }
@@ -97,7 +97,6 @@ class TaskController extends Controller
         ]);
 
         return view('tasks.edit', compact('form'));
-
     }
 
     /**
