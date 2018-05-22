@@ -38,10 +38,10 @@
                         <td style="width: 15%">
                             <div class="raw">
                                 <a href="{{ route('tags.edit', $tag) }}" class="btn">
-                                    <i class="fa phpdebugbar-fa-edit" aria-hidden="true"></i>
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
                                 </a>
                                 <button class="btn btn-link btn-delete delete-tag" value="{{$tag->id}}">
-                                    <i class="fa phpdebugbar-fa-trash" aria-hidden="true"></i>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                                 </a>
                             </div>
@@ -92,10 +92,10 @@
                         <td style="width: 15%">
                             <div class="raw">
                                 <a href="{{ route('task-statuses.edit', $taskStatus) }}"  class="btn">
-                                    <i class="fa phpdebugbar-fa-edit" aria-hidden="true"></i>
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
                                 </a>
                                 <button class="btn btn-link btn-delete delete-taskStatus" value="{{$taskStatus->id}}">
-                                    <i class="fa phpdebugbar-fa-trash" aria-hidden="true"></i>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                                 </a>
                             </div>
