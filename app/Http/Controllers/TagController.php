@@ -100,8 +100,8 @@ class TagController extends Controller
     {
         $tag->tasks()->detach();
 
-        $tag->delete();
+        $result = $tag->delete();
 
-        return redirect()->back();
+        return response()->json($result);
     }
 }

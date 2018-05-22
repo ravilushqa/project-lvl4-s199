@@ -102,8 +102,9 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        $taskStatus->delete();
+        $taskStatus->tasks()->delete();
+        $result = $taskStatus->delete();
 
-        return redirect()->back();
+        return response()->json($result);
     }
 }
