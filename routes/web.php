@@ -21,3 +21,5 @@ Route::resource('users', 'UserController');
 Route::resource('tasks', 'TaskController');
 Route::resource('tags', 'TagController');
 Route::resource('task-statuses', 'TaskStatusController');
+
+Route::get('/settings', 'SettingsController@index')->name('settings.index');

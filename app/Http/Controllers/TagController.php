@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\TagForm;
 use App\Http\Requests\TagStoreRequest;
 use App\Tag;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class TagController extends Controller
 {
@@ -57,12 +59,19 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Tag $tag
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Tag $tag, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(TagForm::class, [
+            'method' => 'PUT',
+            'url' => route('tags.update', $tag),
+            'model' => $tag
+        ]);
+
+        return view('tags.edit', compact('form'));
     }
 
     /**
@@ -89,6 +98,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        $tag->tasks()->detach();
+
         $tag->delete();
 
         return redirect()->back();

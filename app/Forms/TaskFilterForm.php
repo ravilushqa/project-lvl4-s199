@@ -7,7 +7,7 @@ use App\TaskStatus;
 use App\User;
 use Kris\LaravelFormBuilder\Form;
 
-class FilterForm extends Form
+class TaskFilterForm extends Form
 {
     public function buildForm()
     {

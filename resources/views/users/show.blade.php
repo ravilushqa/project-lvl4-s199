@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="text-center justify-content-between align-items-center mb-3">
-                <span class="text-muted">User settings</span>
+                <span class="text-muted">Your settings</span>
             </h4>
             <form action="{{ route('users.update', ['user' => $user->getKey()]) }}" method="POST" class="needs-validation" novalidate>
                 {{ method_field('PUT') }}
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="text-center justify-content-between align-items-center mb-3">
-                <span class="text-muted">Assigned to user tasks</span>
+                <span class="text-muted">Your tasks</span>
             </h4>
             <table class="table">
                 <thead>

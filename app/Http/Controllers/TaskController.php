@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\TaskFilters;
-use App\Forms\FilterForm;
+use App\Forms\TaskFilterForm;
 use App\Forms\TaskForm;
 use App\Http\Requests\TaskStoreRequest;
 use App\Tag;
@@ -23,7 +23,7 @@ class TaskController extends Controller
      */
     public function index(TaskFilters $filters, FormBuilder $formBuilder)
     {
-        $form = $formBuilder->create(FilterForm::class, [
+        $form = $formBuilder->create(TaskFilterForm::class, [
             'method' => 'GET',
             'url' => route('tasks.index'),
         ]);
@@ -85,7 +85,8 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Task  $task
+     * @param  \App\Task $task
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task, FormBuilder $formBuilder)
@@ -137,8 +138,12 @@ class TaskController extends Controller
      */
     protected function getTasks(TaskFilters $filters)
     {
-        $threads = Task::latest()->filter($filters);
+        $threads = Task::with([
+            'tags',
+            'status',
+            'assignedTo'
+        ])->latest()->filter($filters);
 
-        return $threads->paginate(8);
+        return $threads->paginate(10);
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\TaskStatusForm;
 use App\Http\Requests\TaskStatusStoreRequest;
+use App\Task;
 use App\TaskStatus;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class TaskStatusController extends Controller
 {
@@ -59,12 +62,19 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TaskStatus  $taskStatus
+     * @param  \App\TaskStatus $taskStatus
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function edit(TaskStatus $taskStatus)
+    public function edit(TaskStatus $taskStatus, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(TaskStatusForm::class, [
+            'method' => 'PUT',
+            'url' => route('task-statuses.update', $taskStatus),
+            'model' => $taskStatus
+        ]);
+
+        return view('task-statuses.edit', compact('form'));
     }
 
     /**
