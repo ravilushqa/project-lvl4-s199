@@ -66,7 +66,7 @@
             <h4 class="text-center justify-content-between align-items-center mb-3">
                 <span class="text-muted">Task statuses list</span>
             </h4>
-            <h6 class="text-center justify-content-between align-items-center mb-3 text-muted">Warning! Deleting status will delete task</h6>
+            <h6 class="text-center justify-content-between align-items-center mb-3 text-muted">Warning! Deleting status will delete associated task</h6>
 
             <table class="table">
                 <thead>
