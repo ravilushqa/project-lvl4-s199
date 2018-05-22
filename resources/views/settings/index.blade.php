@@ -20,30 +20,21 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Updated</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($tags as $tag)
                     <tr>
-                        <td style="width: 15%">
+                        <td>
                             {{ $tag->getKey() }}
                         </td>
-                        <td style="width: 30%">
-                            {{ $tag->name }}
+                        <td>
+                            <a href="{{ route('tags.edit', $tag->getKey()) }}">
+                                {{ $tag->name }}
+                            </a>
                         </td>
-                        <td style="width: 30%">
+                        <td>
                             {{ $tag->updated_at->diffForHumans() }}
-                        </td>
-                        <td style="width: 25%">
-                            <div class="raw">
-                            <a class="" href="{{ route('tags.edit', $tag) }}">
-                                <i class="fa phpdebugbar-fa-edit" aria-hidden="true"></i>
-                            </a>
-                            <a class="" href="{{ route('tags.destroy', $tag) }}">
-                                <i class="fa phpdebugbar-fa-trash" aria-hidden="true"></i>
-                            </a>
-                            </div>
                         </td>
 
                     </tr>
@@ -72,30 +63,21 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Updated</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($taskStatuses as $taskStatus)
                     <tr>
-                        <td style="width: 15%">
+                        <td>
                             {{ $taskStatus->getKey() }}
                         </td>
-                        <td style="width: 30%">
-                            {{ $taskStatus->name }}
+                        <td>
+                            <a href="{{ route('task-statuses.edit', $taskStatus->getKey()) }}">
+                                {{ $taskStatus->name }}
+                            </a>
                         </td>
-                        <td style="width: 30%">
+                        <td>
                             {{ $taskStatus->updated_at->diffForHumans() }}
-                        </td>
-                        <td style="width: 25%">
-                            <div class="raw">
-                                <a class="" href="{{ route('task-statuses.edit', $taskStatus) }}">
-                                    <i class="fa phpdebugbar-fa-edit" aria-hidden="true"></i>
-                                </a>
-                                <a class="" href="{{ route('task-statuses.destroy', $taskStatus) }}">
-                                    <i class="fa phpdebugbar-fa-trash" aria-hidden="true"></i>
-                                </a>
-                            </div>
                         </td>
                     </tr>
                 @endforeach
