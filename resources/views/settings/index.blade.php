@@ -25,15 +25,15 @@
                 <tbody>
                 @foreach($tags as $tag)
                     <tr>
-                        <td>
+                        <td style="width: 15%">
                             {{ $tag->getKey() }}
                         </td>
-                        <td>
+                        <td style="width: 30%">
                             <a href="{{ route('tags.edit', $tag->getKey()) }}">
                                 {{ $tag->name }}
                             </a>
                         </td>
-                        <td>
+                        <td style="width: 30%">
                             {{ $tag->updated_at->diffForHumans() }}
                         </td>
 
@@ -68,15 +68,15 @@
                 <tbody>
                 @foreach($taskStatuses as $taskStatus)
                     <tr>
-                        <td>
+                        <td style="width: 15%">
                             {{ $taskStatus->getKey() }}
                         </td>
-                        <td>
+                        <td style="width: 30%">
                             <a href="{{ route('task-statuses.edit', $taskStatus->getKey()) }}">
                                 {{ $taskStatus->name }}
                             </a>
                         </td>
-                        <td>
+                        <td style="width: 30%">
                             {{ $taskStatus->updated_at->diffForHumans() }}
                         </td>
                     </tr>
