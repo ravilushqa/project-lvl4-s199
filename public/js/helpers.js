@@ -44,4 +44,7 @@ $(document).ready(function(){
             }
         });
     });
+    //additional
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    $('select').select2();
 });
