@@ -4,6 +4,6 @@
 </p>
 
 ## Task-manager
-Demo http://demo-task-manager.herokuapp.com/tasks
-login:demo@test.test
-password: 123456
+### Demo http://demo-task-manager.herokuapp.com/tasks
+### email:demo@test.test
+### password: 123456
